@@ -1,0 +1,2 @@
+post_endpoint = "https://aelmdo0405cc--full.sandbox.my.salesforce.com/services/data/v56.0/sobjects/:SOBJECT_API_NAME"
+get_endpoint = "https://aelmdo0405cc--full.sandbox.my.salesforce.com/services/data/v56.0/query/?q=SELECT+Id,Name+FROM+Dimension__c"

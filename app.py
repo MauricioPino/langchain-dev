@@ -2,21 +2,28 @@ import json
 import requests
 from data import dimensionData;
 from config import headers;
+from endpoints import get_endpoint, post_endpoint
 
-def send_dimensions_request():
+def main():
 
-    # Convert to dictionary
-    json_data = json.dumps(dimensionData)
-
-    url = "https://jmeds112--full.sandbox.my.salesforce.com/services/data/v56.0/sobjects/:SOBJECT_API_NAME"
-    response = requests.post(url, headers=headers, data=json_data)
-
-    if response.status_code == 200:
+    # POST request
+    post_response = requests.post(post_endpoint, headers=headers, data=json.dumps(dimensionData))
+    if post_response.status_code == 200:
         print("GREAT!")
-        print(response.json())  # Get the response
+        print(post_response.json())
     else:
-        print("ERROR")
-        print(response.text)  # Get the error
+        print("Error sending POST request")
+        print(post_response.text)
 
-if __name__ == "__main__":
-    send_dimensions_request()
+    # GET dimensions
+    get_response = requests.get(get_endpoint, headers=headers)
+    if get_response.status_code == 200:
+        dimensions_data = get_response.json()
+        print("Dimensions from FF sandbox: ")
+        print(dimensions_data)
+    else:
+        print("Error sending GET request")
+        print(get_response.text)
+
+if __name__ == '__main__':
+    main()
